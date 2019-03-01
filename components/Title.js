@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
-import Layout from '../constants/Layout';
+import Layout from '../constants/Layout'
 
 export default class Title extends React.Component {
   render () {
