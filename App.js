@@ -1,18 +1,23 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableHighlight, Alert } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Constants } from 'expo'
 import Header from './components/Header'
 import NotesList from './components/NotesList'
 import ActionButton from 'react-native-action-button'
 import Modal from 'react-native-modal'
+import EditNote from './components/EditNote'
 
 export default class App extends React.Component {
   state = {
-    modalVisible: false,
+    modalVisible: false
   }
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible})
+  setModalVisible (visible) {
+    this.setState({ modalVisible: visible })
+  }
+
+  hideModal = () => {
+    this.setModalVisible(false)
   }
 
   addNote = () => {
@@ -20,7 +25,11 @@ export default class App extends React.Component {
     console.log('add note')
   }
 
-  render() {
+  componentWillUnmount() {
+    this.hideModal()
+  }
+
+  render () {
     return (
       <View style={styles.container}>
         <Modal
@@ -29,19 +38,12 @@ export default class App extends React.Component {
           animationIn='zoomInDown'
           animationOut='zoomOutUp'
           isVisible={this.state.modalVisible}
+          onBackdropPress={this.hideModal}
+          onBackButtonPress={this.hideModal}
         >
-          <View style={{ flex: 1, backgroundColor: '#fff', borderColor: '#B3E5FC', borderWidth: 2, borderRadius: 5 }}>
-            <View>
-              <Text>Hello World!</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
+          <EditNote
+            onDismiss={this.hideModal}
+          />
         </Modal>
 
         <Header title='Notes' />
