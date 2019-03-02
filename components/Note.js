@@ -10,7 +10,7 @@ export default class Note extends React.Component {
     // Wrapped in a View for now to keep the BG color just around text
     // Not a Text bgColor to accomodate edit etc..
     return <View>
-      <View style={{ ...styles.container, backgroundColor: this.props.backgroundColor}}>
+      <View style={{ ...styles.container, backgroundColor: this.props.backgroundColor }}>
         <Text style={styles.noteText}>{this.props.children}</Text>
         <View style={styles.footer}>
           <DateTime color={'#666'}>28.2.2019 21:45</DateTime>

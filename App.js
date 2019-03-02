@@ -22,7 +22,6 @@ export default class App extends React.Component {
 
   addNote = () => {
     this.setModalVisible(true)
-    console.log('add note')
   }
 
   componentWillUnmount() {

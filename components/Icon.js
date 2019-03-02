@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import Layout from '../constants/Layout'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 

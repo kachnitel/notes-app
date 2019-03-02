@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { Alert, Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import { CustomPicker } from 'react-native-custom-picker'
-import Title from './Title'
 import Layout from '../constants/Layout'
 import Icon from '@expo/vector-icons/MaterialIcons'
 
 export default class ColorPicker extends React.Component {
-  render() {
+  render () {
     let options = [
       {
         value: '#FFCDD2',
@@ -31,21 +30,21 @@ export default class ColorPicker extends React.Component {
     ]
 
     return (
-        <CustomPicker
-          placeholder={'Pick a color'}
-          options={options}
-          getLabel={item => item.label}
-          fieldTemplate={this.renderField}
-          optionTemplate={this.renderOption}
-          headerTemplate={this.renderHeader}
-          footerTemplate={this.renderFooter}
-          modalStyle={styles.modal}
-          onValueChange={this.props.onValueChange}
-        />
+      <CustomPicker
+        placeholder={'Pick a color'}
+        options={options}
+        getLabel={item => item.label}
+        fieldTemplate={this.renderField}
+        optionTemplate={this.renderOption}
+        headerTemplate={this.renderHeader}
+        footerTemplate={this.renderFooter}
+        modalStyle={styles.modal}
+        onValueChange={this.props.onValueChange}
+      />
     )
   }
 
-  renderFooter(action) {
+  renderFooter (action) {
     return (
       <TouchableOpacity
         style={styles.footerContainer}
@@ -56,7 +55,7 @@ export default class ColorPicker extends React.Component {
     )
   }
 
-  renderField({ selectedItem, defaultText, getLabel, clear }) {
+  renderField ({ selectedItem, defaultText, getLabel, clear }) {
     return (
       <View style={styles.container}>
         {!selectedItem && <Text style={styles.text}>{defaultText}</Text>}
@@ -78,7 +77,7 @@ export default class ColorPicker extends React.Component {
     )
   }
 
-  renderOption({ item, getLabel }) {
+  renderOption ({ item, getLabel }) {
     return (
       <View style={styles.optionContainer}>
         <View style={{ ...styles.box, backgroundColor: item.value }} />
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: Layout.window.hp(2.5),
-    paddingLeft: Layout.window.wp(1),
+    paddingLeft: Layout.window.wp(1)
   },
   footerContainer: {
     padding: Layout.window.hp(1),
