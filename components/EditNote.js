@@ -21,7 +21,7 @@ export default class EditNote extends React.Component {
 
   render () {
     return (
-      <View style={{ ...styles.container, backgroundColor: this.state.noteColor}}>
+      <View style={{ ...styles.container, backgroundColor: this.state.noteColor }}>
         <View style={styles.header}>
           {/* TODO: state.note ? Edit note : New note */}
           <Title>Edit note</Title>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     width: '100%'
   },
   textInput: {

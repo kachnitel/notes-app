@@ -24,7 +24,7 @@ export default class App extends React.Component {
     this.setModalVisible(true)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.hideModal()
   }
 
@@ -63,5 +63,5 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight
-  },
+  }
 })

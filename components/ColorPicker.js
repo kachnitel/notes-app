@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import { CustomPicker } from 'react-native-custom-picker'
 import Layout from '../constants/Layout'
