@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import Layout from '../constants/Layout'
 import Title from './Title'
-import ColorPicker from './ColorPicker';
+import ColorPicker from './ColorPicker'
 
 export default class EditNote extends React.Component {
   state = {

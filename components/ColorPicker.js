@@ -31,7 +31,6 @@ export default class ColorPicker extends React.Component {
     ]
 
     return (
-      <View style={styles.pickerContainer}>
         <CustomPicker
           placeholder={'Pick a color'}
           options={options}
@@ -43,7 +42,6 @@ export default class ColorPicker extends React.Component {
           modalStyle={styles.modal}
           onValueChange={this.props.onValueChange}
         />
-      </View>
     )
   }
 
@@ -91,18 +89,14 @@ export default class ColorPicker extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  pickerContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center'
-  },
   container: {
+    flexDirection: 'row',
     width: Layout.window.hp(20),
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: Layout.window.hp(2),
     height: Layout.window.hp(5),
-    justifyContent: 'center'
+    alignItems: 'center'
   },
   text: {
     fontSize: Layout.window.hp(2.5),
