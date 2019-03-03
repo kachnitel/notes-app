@@ -9,15 +9,26 @@ import {
 import Layout from '../constants/Layout'
 import Title from './Title'
 import ColorPicker from './ColorPicker'
+import { observer, inject } from 'mobx-react'
 
-export default class EditNote extends React.Component {
+export default
+@inject('NotesStore')
+@observer
+class EditNote extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      noteColor: this.props.note.color || '#fff',
-      text: this.props.note.text || '',
-      isNew: this.props.note.text === '' ? 1 : 0
+      noteColor: '#fff',
+      text: '',
+      isNew: true
+    }
+
+    // Keep in local state until saved
+    if (this.props.note !== null) {
+      this.state.noteColor = this.props.note.color
+      this.state.text = this.props.note.text
+      this.state.isNew = false
     }
   }
 
@@ -30,14 +41,19 @@ export default class EditNote extends React.Component {
   }
 
   handleSave = () => {
-    console.log(this.state, this.props.note)
+    /** @var Note note */
+    let note = this.props.note || this.props.NotesStore.createNote()
+    note.updateColor(this.state.noteColor)
+    note.updateText(this.state.text)
+    console.log(note)
+    this.props.onSave()
   }
 
   render () {
     return (
       <View style={{ ...styles.container, backgroundColor: this.state.noteColor }}>
         <View style={styles.header}>
-          <Title>{this.state.isNew ? 'Edit note' : 'New note'}</Title>
+          <Title>{this.state.isNew ? 'New note' : 'Edit note'}</Title>
         </View>
         <TextInput
           style={styles.textInput}

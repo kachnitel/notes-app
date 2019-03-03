@@ -6,12 +6,8 @@ import NotesList from '../components/NotesList'
 import ActionButton from 'react-native-action-button'
 import Modal from 'react-native-modal'
 import EditNote from '../components/EditNote'
-import { observer, inject } from 'mobx-react'
 
-export default
-@inject('NotesStore')
-@observer
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
     activeNote: null
@@ -27,8 +23,6 @@ class HomeScreen extends React.Component {
   }
 
   addNote = () => {
-    let note = this.props.NotesStore.createNote()
-    this.setState({ activeNote: note })
     this.setModalVisible(true)
   }
 
@@ -51,6 +45,7 @@ class HomeScreen extends React.Component {
           <EditNote
             onDismiss={this.hideModal}
             note={this.state.activeNote}
+            onSave={this.hideModal}
           />
         </Modal>
 
