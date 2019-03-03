@@ -12,11 +12,20 @@ import ColorPicker from './ColorPicker'
 
 export default class EditNote extends React.Component {
   state = {
-    noteColor: '#fff'
+    noteColor: '#fff',
+    text: ''
   }
 
-  updateColor = (value) => {
+  updateColor = (value: string) => {
     this.setState({ noteColor: value ? value.value : '#fff' })
+  }
+
+  handleTextUpdate = (value: string) => {
+    this.setState({ text: value })
+  }
+
+  handleSave = () => {
+    console.log(this.state)
   }
 
   render () {
@@ -32,15 +41,29 @@ export default class EditNote extends React.Component {
           placeholder="Let's note something!"
           maxLength={2048}
           placeholderTextColor='#666'
+          onChangeText={this.handleTextUpdate}
         />
         <View style={styles.footer}>
-          <TouchableHighlight
-            onPress={this.props.onDismiss}>
-            <Text style={styles.cancel}>Cancel</Text>
+          <TouchableHighlight onPress={this.props.onDismiss}>
+            <Text style={{ ...styles.footerOptionText, color: '#444' }}>
+              Cancel
+            </Text>
           </TouchableHighlight>
           <ColorPicker
             onValueChange={this.updateColor}
+            containerStyle={styles.footerOptionContainer}
           />
+          <TouchableHighlight
+            onPress={this.handleSave}
+            style={styles.footerOptionContainer}
+          >
+            <Text style={{
+              ...styles.footerOptionText,
+              color: this.state.text ? '#000' : '#666'
+            }}>
+              Save
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     )
@@ -52,7 +75,7 @@ const styles = StyleSheet.create({
     height: Layout.window.hp(50),
     padding: Layout.window.hp(2),
     backgroundColor: '#fff',
-    borderColor: '#F5F5F5',
+    borderColor: '#0003',
     borderWidth: 1,
     borderRadius: 5
   },
@@ -70,5 +93,15 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: Layout.window.hp(3),
     textAlignVertical: 'top'
+  },
+  footerOptionContainer: {
+    borderColor: '#0003',
+    borderWidth: 1,
+    borderRadius: Layout.window.hp(2)
+  },
+  footerOptionText: {
+    fontSize: Layout.window.hp(2.5),
+    paddingVertical: Layout.window.hp(0.5),
+    paddingHorizontal: Layout.window.wp(1.5)
   }
 })
