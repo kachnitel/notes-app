@@ -4,16 +4,18 @@ import { View, Text, StyleSheet } from 'react-native'
 import Layout from '../constants/Layout'
 import DateTime from './DateTime'
 import Icon from './Icon'
+import moment from 'moment'
 
 export default class Note extends React.Component {
   render () {
+    let formattedDate = moment(this.props.note.created * 1000).format('D.M.YYYY HH:mm')
     // Wrapped in a View for now to keep the BG color just around text
-    // Not a Text bgColor to accomodate edit etc..
+    // But not a Text bgColor to accomodate edit etc..
     return <View>
-      <View style={{ ...styles.container, backgroundColor: this.props.backgroundColor }}>
-        <Text style={styles.noteText}>{this.props.children}</Text>
+      <View style={{ ...styles.container, backgroundColor: this.props.note.color }}>
+        <Text style={styles.noteText}>{this.props.note.text}</Text>
         <View style={styles.footer}>
-          <DateTime color={'#666'}>28.2.2019 21:45</DateTime>
+          <DateTime color={'#666'}>{formattedDate}</DateTime>
           <View style={styles.footerIcons}>
             <Icon name='square-edit-outline' />
             <Icon name='delete' />
@@ -25,8 +27,7 @@ export default class Note extends React.Component {
 }
 
 Note.propTypes = {
-  backgroundColor: PropTypes.string,
-  children: PropTypes.string
+  note: PropTypes.object
 }
 
 const styles = StyleSheet.create({

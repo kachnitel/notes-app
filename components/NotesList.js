@@ -10,12 +10,14 @@ export default
 class NotesList extends React.Component {
   render () {
     let notes = this.props.NotesStore.notes.map((note) => {
-      return <Note backgroundColor={note.color} key={note.id}>{note.text}</Note>
+      return <Note note={note} key={note.id} />
     })
 
-    return <ScrollView contentContainerStyle={styles.container}>
-      {notes}
-    </ScrollView>
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        {notes}
+      </ScrollView>
+    )
   }
 }
 
