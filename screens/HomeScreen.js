@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Alert } from 'react-native'
 import { Constants } from 'expo'
 import Header from '../components/Header'
 import NotesList from '../components/NotesList'
@@ -35,7 +35,20 @@ export default class HomeScreen extends React.Component {
   }
 
   deleteNote = (note) => {
-    note.delete()
+    Alert.alert(
+      'Delete note',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Delete',
+          onPress: () => note.delete()
+        }
+      ]
+    )
   }
 
   render () {

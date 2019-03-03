@@ -5,14 +5,12 @@ import moment from 'moment'
 import uuid from 'uuid-js'
 
 export class Note {
-  constructor (store) {
-    this.store = store
+  constructor () {
     this.id = uuid.create().toString()
     this.created = moment().format('X')
   }
 
   // Immutable values
-  store = null
   @persist id = null
   @persist created = null
 
@@ -23,7 +21,7 @@ export class Note {
   @action updateText (newValue: string) { this.text = newValue }
 
   delete () {
-    this.store.deleteNote(this)
+    singleton.deleteNote(this)
   }
 }
 
