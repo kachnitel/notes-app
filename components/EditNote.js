@@ -4,7 +4,10 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  ToastAndroid,
+  Alert,
+  Platform
 } from 'react-native'
 import Layout from '../constants/Layout'
 import Title from './Title'
@@ -41,6 +44,15 @@ class EditNote extends React.Component {
   }
 
   handleSave = () => {
+    if (this.state.text === '') {
+      let warningMessage = 'Trying to save empty note'
+      if (Platform.OS === 'ios') {
+        Alert.alert(warningMessage)
+      } else {
+        ToastAndroid.show(warningMessage, ToastAndroid.SHORT)
+      }
+      return
+    }
     /** @var Note note */
     let note = this.props.note || this.props.NotesStore.createNote()
     note.updateColor(this.state.noteColor)
