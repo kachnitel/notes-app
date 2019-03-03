@@ -90,8 +90,8 @@ export default class ColorPicker extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: Layout.window.hp(20),
-    borderColor: 'grey',
+    width: Layout.window.wp(30),
+    borderColor: '#0003',
     borderWidth: 1,
     borderRadius: Layout.window.hp(2),
     height: Layout.window.hp(5),
