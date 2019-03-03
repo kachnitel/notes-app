@@ -1,14 +1,18 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Layout from '../constants/Layout'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export default class Icon extends React.Component {
   render () {
-    return <MaterialCommunityIcons
-      name={this.props.name}
-      style={styles.icon}
-    />
+    return (
+      <TouchableWithoutFeedback onPress={this.props.onPress}>
+        <MaterialCommunityIcons
+          name={this.props.name}
+          style={styles.icon}
+        />
+      </TouchableWithoutFeedback>
+    )
   }
 }
 

@@ -4,13 +4,12 @@ import { Constants } from 'expo'
 import Header from '../components/Header'
 import NotesList from '../components/NotesList'
 import ActionButton from 'react-native-action-button'
-import Modal from 'react-native-modal'
-import EditNote from '../components/EditNote'
+import EditNoteModal from '../components/EditNoteModal'
 
 export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
-    activeNote: null
+    editingNote: null
   }
 
   setModalVisible (visible: boolean) {
@@ -19,10 +18,10 @@ export default class HomeScreen extends React.Component {
 
   hideModal = () => {
     this.setModalVisible(false)
-    this.setState({ activeNote: null })
   }
 
-  addNote = () => {
+  addNote = async () => {
+    await this.setState({ editingNote: null })
     this.setModalVisible(true)
   }
 
@@ -30,27 +29,30 @@ export default class HomeScreen extends React.Component {
     this.hideModal()
   }
 
+  editNote = async (note) => {
+    await this.setState({ editingNote: note })
+    this.setModalVisible(true)
+  }
+
+  deleteNote = (note) => {
+    note.delete()
+  }
+
   render () {
     return (
       <View style={styles.container}>
-        <Modal
-          backdropColor='#000'
-          backdropOpacity={0.75}
-          animationIn='zoomInDown'
-          animationOut='zoomOutUp'
+        <EditNoteModal
           isVisible={this.state.modalVisible}
-          onBackdropPress={this.hideModal}
-          onBackButtonPress={this.hideModal}
-        >
-          <EditNote
-            onDismiss={this.hideModal}
-            note={this.state.activeNote}
-            onSave={this.hideModal}
-          />
-        </Modal>
+          note={this.state.editingNote}
+          onDismiss={this.hideModal}
+          onSave={this.hideModal}
+        />
 
         <Header title='Notes' />
-        <NotesList />
+        <NotesList
+          onEditNote={this.editNote}
+          onDeleteNote={this.deleteNote}
+        />
         <ActionButton
           buttonColor='#0288D1'
           onPress={this.addNote}

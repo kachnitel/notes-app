@@ -21,17 +21,18 @@ class EditNote extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      noteColor: '#fff',
-      text: '',
-      isNew: true
-    }
-
-    // Keep in local state until saved
-    if (this.props.note !== null) {
-      this.state.noteColor = this.props.note.color
-      this.state.text = this.props.note.text
-      this.state.isNew = false
+    if (props.note == null) {
+      this.state = {
+        noteColor: '#fff',
+        text: '',
+        isNew: true
+      }
+    } else {
+      this.state = {
+        noteColor: props.note.color,
+        text: props.note.text,
+        isNew: false
+      }
     }
   }
 
@@ -57,7 +58,6 @@ class EditNote extends React.Component {
     let note = this.props.note || this.props.NotesStore.createNote()
     note.updateColor(this.state.noteColor)
     note.updateText(this.state.text)
-    console.log(note)
     this.props.onSave()
   }
 
@@ -74,6 +74,8 @@ class EditNote extends React.Component {
           maxLength={2048}
           placeholderTextColor='#666'
           onChangeText={this.handleTextUpdate}
+          autoFocus
+          value={this.state.text}
         />
         <View style={styles.footer}>
           <TouchableHighlight onPress={this.props.onDismiss}>
@@ -84,6 +86,7 @@ class EditNote extends React.Component {
           <ColorPicker
             onValueChange={this.updateColor}
             containerStyle={styles.footerOptionContainer}
+            value={this.state.noteColor}
           />
           <TouchableHighlight
             onPress={this.handleSave}

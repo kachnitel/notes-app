@@ -11,7 +11,7 @@ class NotesStore {
     return note
   }
 
-  @action removeNote (note: Note) {
+  @action deleteNote (note: Note) {
     this.notes.splice(this.notes.indexOf(note), 1)
   }
 }
