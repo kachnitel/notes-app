@@ -55,9 +55,9 @@ export default class ColorPicker extends React.Component {
     )
   }
 
-  renderField ({ selectedItem, defaultText, getLabel, clear }) {
+  renderField = ({ selectedItem, defaultText, getLabel, clear }) => {
     return (
-      <View style={styles.container}>
+      <View style={{ ...styles.container, ...this.props.containerStyle }}>
         {!selectedItem && <Text style={styles.text}>{defaultText}</Text>}
         {selectedItem && (
           <>
@@ -81,7 +81,7 @@ export default class ColorPicker extends React.Component {
     return (
       <View style={styles.optionContainer}>
         <View style={{ ...styles.box, backgroundColor: item.value }} />
-        <Text style={{ alignSelf: 'flex-start' }}>{getLabel(item)}</Text>
+        <Text>{getLabel(item)}</Text>
       </View>
     )
   }
@@ -91,9 +91,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: Layout.window.wp(30),
-    borderColor: '#0003',
-    borderWidth: 1,
-    borderRadius: Layout.window.hp(2),
     height: Layout.window.hp(5),
     alignItems: 'center'
   },
@@ -109,7 +106,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: Layout.window.hp(1.5),
     borderBottomColor: 'grey',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    alignItems: 'center'
   },
   box: {
     width: Layout.window.hp(4),
