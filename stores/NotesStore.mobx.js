@@ -1,9 +1,34 @@
 import { observable, action } from 'mobx'
+import { create, persist } from 'mobx-persist'
+import { AsyncStorage } from 'react-native'
 import moment from 'moment'
 import uuid from 'uuid-js'
 
+export class Note {
+  constructor (store) {
+    this.store = store
+    this.id = uuid.create().toString()
+    this.created = moment().format('X')
+  }
+
+  // Immutable values
+  store = null
+  @persist id = null
+  @persist created = null
+
+  @persist @observable color = ''
+  @persist @observable text = ''
+
+  @action updateColor (newValue: string) { this.color = newValue }
+  @action updateText (newValue: string) { this.text = newValue }
+
+  delete () {
+    this.store.deleteNote(this)
+  }
+}
+
 class NotesStore {
-  @observable notes = []
+  @persist('list', Note) @observable notes = []
 
   @action createNote () {
     let note = new Note(this)
@@ -19,25 +44,12 @@ class NotesStore {
 const singleton = new NotesStore()
 export default singleton
 
-export class Note {
-  constructor (store) {
-    this.store = store
-    this.id = uuid.create().toString()
-    this.created = moment().format('X')
-  }
+const hydrate = create({
+  storage: AsyncStorage, // Choose our storage medium, ensure it's imported above
+  jsonify: true // if you use AsyncStorage, this needs to be true
+})
 
-  // Immutable values
-  store = null
-  id = null
-  created = null
-
-  @observable color = ''
-  @observable text = ''
-
-  @action updateColor (newValue: string) { this.color = newValue }
-  @action updateText (newValue: string) { this.text = newValue }
-
-  delete () {
-    this.store.deleteNote(this)
-  }
-}
+// We hydrate anything we've persisted so that it is updated into the state on creation
+hydrate('persistedState', singleton).then((data) => {
+  console.log('Hydrated persisted data ', data)
+})
