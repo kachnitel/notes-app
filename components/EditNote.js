@@ -11,9 +11,14 @@ import Title from './Title'
 import ColorPicker from './ColorPicker'
 
 export default class EditNote extends React.Component {
-  state = {
-    noteColor: '#fff',
-    text: ''
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      noteColor: this.props.note.color || '#fff',
+      text: this.props.note.text || '',
+      isNew: this.props.note.text === '' ? 1 : 0
+    }
   }
 
   updateColor = (value: string) => {
@@ -25,15 +30,14 @@ export default class EditNote extends React.Component {
   }
 
   handleSave = () => {
-    console.log(this.state)
+    console.log(this.state, this.props.note)
   }
 
   render () {
     return (
       <View style={{ ...styles.container, backgroundColor: this.state.noteColor }}>
         <View style={styles.header}>
-          {/* TODO: state.note ? Edit note : New note */}
-          <Title>Edit note</Title>
+          <Title>{this.state.isNew ? 'Edit note' : 'New note'}</Title>
         </View>
         <TextInput
           style={styles.textInput}
