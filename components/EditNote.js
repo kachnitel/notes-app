@@ -86,7 +86,6 @@ class EditNote extends React.Component {
           <ColorPicker
             onValueChange={this.updateColor}
             containerStyle={styles.footerOptionContainer}
-            value={this.state.noteColor}
           />
           <TouchableHighlight
             onPress={this.handleSave}

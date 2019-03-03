@@ -1,5 +1,10 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native'
 import { CustomPicker } from 'react-native-custom-picker'
 import Layout from '../constants/Layout'
 import Icon from '@expo/vector-icons/MaterialIcons'
@@ -40,6 +45,7 @@ export default class ColorPicker extends React.Component {
         footerTemplate={this.renderFooter}
         modalStyle={styles.modal}
         onValueChange={this.props.onValueChange}
+        keyboardShouldPersistTaps={'handled'}
       />
     )
   }
